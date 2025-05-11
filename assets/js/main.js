@@ -20,7 +20,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Função para navegar para uma seção
   window.navigateToSection = function(sectionId) {
     showSection(sectionId);
     const section = document.getElementById(sectionId);
@@ -29,26 +28,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   };
 
-  // Função para navegar para um projeto específico
   window.navigateToProject = function(projectId) {
     showSection('projetos');
     const project = document.getElementById(projectId);
     if (project) {
-      // Remover destaque de outros projetos
       document.querySelectorAll('.project-card').forEach(card => {
         card.classList.remove('highlight');
       });
-      // Adicionar destaque ao projeto selecionado
       project.classList.add('highlight');
       project.scrollIntoView({ behavior: 'smooth', block: 'center' });
-      // Remover o destaque após 2 segundos
       setTimeout(() => {
         project.classList.remove('highlight');
       }, 2000);
     }
   };
 
-  // Inicializar particles.js
   particlesJS('particles-js', {
     particles: {
       number: { value: 80, density: { enable: true, value_area: 800 } },
@@ -88,7 +82,6 @@ document.addEventListener('DOMContentLoaded', () => {
     retina_detect: true
   });
 
-  // Função auxiliar para validar input do QR Code
   function validateQRCodeInput(text) {
     if (!text) {
       return { valid: false, message: 'Por favor, insira um texto ou URL válido.' };
@@ -96,16 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
     if (text.length > 1000) {
       return { valid: false, message: 'O texto é muito longo (máximo 1000 caracteres).' };
     }
-    // Remover emojis
     const cleanText = text.replace(/[\u{1F600}-\u{1F6FF}]/gu, '');
-    // Permitir ASCII imprimível e caracteres latinos estendidos (ex.: ç, á, é)
     if (!cleanText.match(/^[\x20-\x7E\xA0-\xFF]*$/)) {
       return { valid: false, message: 'O texto contém caracteres inválidos. Use letras, números, acentos comuns (ex.: ç, á) e símbolos padrão.' };
     }
     return { valid: true, text: cleanText };
   }
 
-  // Função auxiliar para gerar QR Code com QRious
   function generateQRCodeWithCheck(elementId, text, errorElementId, errorMessagePrefix) {
     const qrCodeCanvas = document.getElementById(elementId);
     const errorDiv = document.getElementById(errorElementId);
@@ -117,7 +107,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Limpar o canvas anterior
     qrCodeCanvas.getContext('2d').clearRect(0, 0, qrCodeCanvas.width, qrCodeCanvas.height);
     errorDiv.style.display = 'none';
 
@@ -129,7 +118,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
-    // Verificar se a biblioteca QRious está carregada
     if (typeof QRious === 'undefined') {
       errorDiv.textContent = `${errorMessagePrefix}: Biblioteca QRious não carregada.`;
       errorDiv.style.display = 'block';
@@ -142,9 +130,9 @@ document.addEventListener('DOMContentLoaded', () => {
         element: qrCodeCanvas,
         value: validation.text,
         size: 200,
-        foreground: '#FDB927', // Dourado
-        background: '#FFFFFF', // Branco
-        level: 'M', // Nível de correção médio
+        foreground: '#FDB927',
+        background: '#FFFFFF',
+        level: 'M',
         padding: 10
       });
       console.log(`${errorMessagePrefix}: QR Code gerado com sucesso para`, validation.text);
@@ -155,26 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Funções para Gerador de QR Code
   window.generateQRCode = function() {
     const qrInput = document.getElementById('qr-input').value.trim();
     generateQRCodeWithCheck('qr-code', qrInput, 'qr-error', 'Gerador de QR Code');
   };
 
-  window.clearQRCode = function() {
-    const qrInput = document.getElementById('qr-input');
-    const qrCodeCanvas = document.getElementById('qr-code');
-    const errorDiv = document.getElementById('qr-error');
-
-    if (qrInput) qrInput.value = '';
-    if (qrCodeCanvas) qrCodeCanvas.getContext('2d').clearRect(0, 0, qrCodeCanvas.width, qrCodeCanvas.height);
-    if (errorDiv) {
-      errorDiv.textContent = '';
-      errorDiv.style.display = 'none';
-    }
-  };
-
-  // Funções para QR Parking
   window.calculateParking = function() {
     const entry = new Date(document.getElementById('parking-entry').value);
     const exit = new Date(document.getElementById('parking-exit').value);
@@ -184,7 +157,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const paymentQrLabel = document.getElementById('payment-qr-label');
     const parkingError = document.getElementById('parking-error');
 
-    // Limpar canvas anterior
     if (paymentQrCanvas) {
       paymentQrCanvas.getContext('2d').clearRect(0, 0, paymentQrCanvas.width, paymentQrCanvas.height);
     }
@@ -207,39 +179,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     const hours = (exit - entry) / (1000 * 60 * 60);
-    const rate = 5; // R$5 por hora
+    const rate = 5;
     const total = (hours * rate).toFixed(2);
     const resultText = `Veículo: ${plate} | Tempo: ${hours.toFixed(1)} horas | Total: R$${total}`;
 
     resultDiv.textContent = resultText;
-
-    // Gerar QR Code para pagamento
     generateQRCodeWithCheck('payment-qr-code', resultText, 'parking-error', 'QR Parking');
     paymentQrLabel.style.display = 'block';
   };
 
-  window.clearParking = function() {
-    const plateInput = document.getElementById('parking-plate');
-    const entryInput = document.getElementById('parking-entry');
-    const exitInput = document.getElementById('parking-exit');
-    const resultDiv = document.getElementById('parking-result');
-    const paymentQrCanvas = document.getElementById('payment-qr-code');
-    const paymentQrLabel = document.getElementById('payment-qr-label');
-    const parkingError = document.getElementById('parking-error');
-
-    if (plateInput) plateInput.value = '';
-    if (entryInput) entryInput.value = '';
-    if (exitInput) exitInput.value = '';
-    if (resultDiv) resultDiv.textContent = '';
-    if (paymentQrCanvas) paymentQrCanvas.getContext('2d').clearRect(0, 0, paymentQrCanvas.width, paymentQrCanvas.height);
-    if (paymentQrLabel) paymentQrLabel.style.display = 'none';
-    if (parkingError) {
-      parkingError.textContent = '';
-      parkingError.style.display = 'none';
-    }
-  };
-
-  // Funções para Gestor de Tarefas
   let tasks = JSON.parse(localStorage.getItem('tasks')) || [];
 
   function renderTasks() {
@@ -282,9 +230,167 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTasks();
   };
 
-  // Inicializar tarefas
-  renderTasks();
+  // Guitar Tuner Functionality
+  let pick = false;
+  const bodyStyle = document.body.style;
+  bodyStyle.setProperty('--vol', '0.5');
 
-  // Mostrar a seção "Home" por padrão
+  const strings = {
+    s1: document.getElementById('as1'),
+    s2: document.getElementById('as2'),
+    s3: document.getElementById('as3'),
+    s4: document.getElementById('as4'),
+    s5: document.getElementById('as5'),
+    s6: document.getElementById('as6')
+  };
+
+  function isPlaying(audio) {
+    return !audio.paused;
+  }
+
+  window.pickString = function(stringId) {
+    if (pick) {
+      clickString(stringId);
+    }
+  };
+
+  window.clickString = function(stringId) {
+    const stringElement = document.getElementById(stringId);
+    const audio = strings[stringId];
+    const note = document.getElementById(stringId + 'Note');
+    const nota = document.getElementById(stringId + 'Nota');
+
+    if (!audio) {
+      console.error(`Áudio para ${stringId} não encontrado`);
+      return;
+    }
+
+    // Reset
+    if (isPlaying(audio)) {
+      clearInterval(window[stringId + 'Timer']);
+      audio.pause();
+      audio.currentTime = 0;
+      stringElement.className = 'string';
+      note.className = '';
+      nota.className = '';
+    }
+
+    // Play
+    audio.play().catch(e => {
+      console.error(`Erro ao tocar áudio ${stringId}:`, e);
+    });
+    stringElement.classList.add('playing-sound');
+    note.classList.add('lightOn');
+    nota.classList.add('lightOn');
+
+    // Monitor
+    const soundTimer = setInterval(() => {
+      if (!isPlaying(audio) && !audio.loop) {
+        stringElement.className = 'string';
+        note.className = '';
+        nota.className = '';
+        clearInterval(soundTimer);
+      }
+    }, 200);
+    window[stringId + 'Timer'] = soundTimer;
+  };
+
+  window.holdSound = function() {
+    const btnHold = document.getElementById('btnHold');
+    const isLooping = strings.s1.loop;
+    Object.values(strings).forEach(audio => {
+      audio.loop = !isLooping;
+    });
+    btnHold.className = isLooping ? '' : 'active';
+    if (isLooping) {
+      stopStrings();
+    }
+  };
+
+  window.stopStrings = function() {
+    Object.values(strings).forEach(audio => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
+    document.querySelectorAll('.playing-sound').forEach(el => {
+      el.className = 'string';
+    });
+    document.querySelectorAll('.lightOn').forEach(el => {
+      el.className = '';
+    });
+  };
+
+  window.usePick = function() {
+    const btnPick = document.getElementById('btnPick');
+    const guitarBody = document.getElementById('guitar-body');
+    pick = !pick;
+    btnPick.className = pick ? 'active' : '';
+    guitarBody.classList.toggle('pickActive', pick);
+    if (pick) {
+      guitarBody.addEventListener('mousemove', pickChecked);
+    } else {
+      guitarBody.removeEventListener('mousemove', pickChecked);
+    }
+  };
+
+  window.pickChecked = function(event) {
+    const target = document.getElementById('move-pick');
+    const rect = target.parentElement.getBoundingClientRect();
+    const xposition = event.clientX - rect.left - target.offsetWidth / 2;
+    const yposition = event.clientY - rect.top - target.offsetHeight / 2;
+    target.style.transform = `translate(${xposition}px, ${yposition}px)`;
+  };
+
+  window.setVolume = function(val) {
+    bodyStyle.setProperty('--vol', val);
+    document.querySelector('.slider-value').textContent = Math.round(val * 10);
+    Object.values(strings).forEach(audio => {
+      audio.volume = val;
+    });
+  };
+
+  window.changeGuitar = function(id) {
+    stopStrings();
+    const guitarBody = document.getElementById('guitar-body');
+    guitarBody.classList.toggle('e-classic', id === 'e-classic');
+    guitarBody.classList.toggle('e-electric', id === 'e-electric');
+    document.querySelectorAll('.change-guitar').forEach(btn => {
+      btn.disabled = btn.id === id;
+      btn.classList.toggle('active', btn.id === id);
+    });
+    changeStrings(id === 'e-classic');
+  };
+
+  function changeStrings(isClassic) {
+    const sources = isClassic
+      ? {
+          s1: 'https://cdn.josetxu.com/audio/cgs-1.mp3',
+          s2: 'https://cdn.josetxu.com/audio/cgs-2.mp3',
+          s3: 'https://cdn.josetxu.com/audio/cgs-3.mp3',
+          s4: 'https://cdn.josetxu.com/audio/cgs-4.mp3',
+          s5: 'https://cdn.josetxu.com/audio/cgs-5.mp3',
+          s6: 'https://cdn.josetxu.com/audio/cgs-6.mp3'
+        }
+      : {
+          s1: 'https://cdn.josetxu.com/audio/egs-1.mp3',
+          s2: 'https://cdn.josetxu.com/audio/egs-2.mp3',
+          s3: 'https://cdn.josetxu.com/audio/egs-3.mp3',
+          s4: 'https://cdn.josetxu.com/audio/egs-4.mp3',
+          s5: 'https://cdn.josetxu.com/audio/egs-5.mp3',
+          s6: 'https://cdn.josetxu.com/audio/egs-6.mp3'
+        };
+    Object.entries(sources).forEach(([id, src]) => {
+      strings[id].src = src;
+      strings[id].load();
+    });
+  }
+
+  // Initialize tuner
+  Object.values(strings).forEach(audio => {
+    audio.load();
+    audio.volume = 0.5;
+  });
+
+  renderTasks();
   showSection('home');
 });
