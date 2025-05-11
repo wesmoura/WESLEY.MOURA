@@ -55,6 +55,10 @@
               <h3>Gestor de Tarefas</h3>
               <p>Organize suas tarefas de forma eficiente.</p>
             </div>
+            <div class="carousel-item" onclick="navigateToProject('project-guitar-tuner')">
+              <h3>Afinador de Guitarra</h3>
+              <p>Afine sua guitarra com facilidade.</p>
+            </div>
           </div>
         </div>
       </section>
@@ -89,7 +93,6 @@
         <div class="section-content card">
           <p>Sou um profissional com várias experiências na área metal-mecânica e agora algumas dessas em programação. Tenho formação em:</p>
           <ul>
-            <li>Analista de suporte técnico de T I</li>
             <li>Operador e Programador de CNC</li>
             <li>Almoxarifado com conhecimento em NR11</li>
             <li>Máquinas Injetoras de Plástico</li>
@@ -146,10 +149,7 @@
             <p class="project-description">Gere QR Codes personalizados para qualquer URL ou texto.</p>
             <div class="project-demo">
               <input type="text" id="qr-input" placeholder="Digite uma URL ou texto">
-              <div class="button-group">
-                <button onclick="generateQRCode()">Gerar QR Code</button>
-                <button onclick="clearQRCode()">Limpar</button>
-              </div>
+              <button onclick="generateQRCode()">Gerar QR Code</button>
               <p id="qr-error" style="color: red; display: none;"></p>
               <canvas id="qr-code"></canvas>
             </div>
@@ -161,10 +161,7 @@
               <input type="text" id="parking-plate" placeholder="Placa do veículo">
               <input type="datetime-local" id="parking-entry" placeholder="Hora de entrada">
               <input type="datetime-local" id="parking-exit" placeholder="Hora de saída">
-              <div class="button-group">
-                <button onclick="calculateParking()">Calcular Valor</button>
-                <button onclick="clearParking()">Limpar</button>
-              </div>
+              <button onclick="calculateParking()">Calcular Valor</button>
               <p id="parking-result"></p>
               <p id="parking-error" style="color: red; display: none;"></p>
               <p id="payment-qr-label" style="display: none;">QR Code para pagamento</p>
@@ -178,6 +175,60 @@
               <input type="text" id="task-input" placeholder="Digite uma nova tarefa">
               <button onclick="addTask()">Adicionar Tarefa</button>
               <ul id="task-list"></ul>
+            </div>
+          </div>
+          <div class="project-card" id="project-guitar-tuner">
+            <h3 class="project-title">Afinador de Guitarra W.Moura</h3>
+            <p class="project-description">Afine seu instrumento aqui mesmo.</p>
+            <div class="project-demo guitar-tuner">
+              <header>
+                <button id="e-classic" class="change-guitar" onclick="changeGuitar('e-classic')">Clássica</button>
+                <button id="e-electric" class="change-guitar active" onclick="changeGuitar('e-electric')" disabled>Elétrica</button>
+              </header>
+              <div class="tuner-body e-electric" id="guitar-body">
+                <button onmouseenter="pickString('s6')" onclick="clickString('s6')" class="string" id="s6"><span></span></button>
+                <button onmouseenter="pickString('s5')" onclick="clickString('s5')" class="string" id="s5"><span></span></button>
+                <button onmouseenter="pickString('s4')" onclick="clickString('s4')" class="string" id="s4"><span></span></button>
+                <button onmouseenter="pickString('s3')" onclick="clickString('s3')" class="string" id="s3"><span></span></button>
+                <button onmouseenter="pickString('s2')" onclick="clickString('s2')" class="string" id="s2"><span></span></button>
+                <button onmouseenter="pickString('s1')" onclick="clickString('s1')" class="string" id="s1"><span></span></button>
+                <div class="notes">
+                  <span id="s6Note">E</span>
+                  <span id="s5Note">A</span>
+                  <span id="s4Note">D</span>
+                  <span id="s3Note">G</span>
+                  <span id="s2Note">B</span>
+                  <span id="s1Note">E</span>
+                </div>
+                <div class="notes">
+                  <span id="s6Nota">MI</span>
+                  <span id="s5Nota">LA</span>
+                  <span id="s4Nota">RE</span>
+                  <span id="s3Nota">SOL</span>
+                  <span id="s2Nota">SI</span>
+                  <span id="s1Nota">MI</span>
+                </div>
+                <div id="move-pick"></div>
+              </div>
+              <footer>
+                <div class="slider">
+                  <input id="volume" type="range" min="0" max="1" value="0.5" step="0.1" oninput="setVolume(this.value)" onchange="setVolume(this.value)" autocomplete="off">
+                  <div class="slider-value">5</div>
+                </div>
+                <div class="buttons">
+                  <button onfocus="stopStrings()" id="btnStop">Parar</button>
+                  <button onclick="holdSound()" id="btnHold">Sustentar</button>
+                </div>
+                <div class="pick">
+                  <button onclick="usePick()" id="btnPick">Palheta</button>
+                </div>
+              </footer>
+              <audio id="as1" src="https://cdn.josetxu.com/audio/egs-1.mp3"></audio>
+              <audio id="as2" src="https://cdn.josetxu.com/audio/egs-2.mp3"></audio>
+              <audio id="as3" src="https://cdn.josetxu.com/audio/egs-3.mp3"></audio>
+              <audio id="as4" src="https://cdn.josetxu.com/audio/egs-4.mp3"></audio>
+              <audio id="as5" src="https://cdn.josetxu.com/audio/egs-5.mp3"></audio>
+              <audio id="as6" src="https://cdn.josetxu.com/audio/egs-6.mp3"></audio>
             </div>
           </div>
         </div>
