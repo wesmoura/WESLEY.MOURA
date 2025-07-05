@@ -15,7 +15,7 @@
     <div class="sidebar-header">
       <img src="assets/img/wessde.jpg" alt="Foto de Wesley Moura" class="profile-image">
       <h1>Wesley Moura</h1>
-      <h2>Desenvolvedor Back-End C# Jr</h2>
+      <h2>Desenvolvedor Jr</h2>
     </div>
     <nav>
       <button class="nav-link" data-section="home"><i class="fas fa-home"></i> Início</button>
@@ -26,6 +26,7 @@
       <button class="nav-link" data-section="projetos"><i class="fas fa-project-diagram"></i> Projetos</button>
       <button class="nav-link" data-section="idiomas"><i class="fas fa-globe"></i> Idiomas</button>
       <button class="nav-link" data-section="certificacoes"><i class="fas fa-certificate"></i> Certificações</button>
+      <button class="nav-link" id="dark-mode-toggle"><i class="fas fa-moon"></i> Modo Escuro</button>
     </nav>
   </div>
 
@@ -35,7 +36,7 @@
         <div id="particles-js" class="hero-background"></div>
         <div class="hero-content">
           <h1>Oi, eu sou <span class="typewriter">Wesley Moura</span></h1>
-          <h2>Desenvolvedor Back-End C# Jr</h2>
+          <h2>Desenvolvedor Jr</h2>
           <p>Construindo soluções inovadoras com código e paixão. Confira meus projetos abaixo!</p>
           <div class="hero-buttons">
             <button class="cta-button" onclick="navigateToSection('projetos')">
@@ -70,7 +71,7 @@
 <p>Meu nome é Wesley Moura, tenho 32 anos e moro em Blumenau desde 2019. Aos 27 anos, tive minha primeira assinatura na carteira de trabalho sob contrato CLT. Antes disso, minha trajetória profissional foi marcada pela música, uma paixão que me acompanhou por vários anos e me ensinou disciplina, criatividade e resiliência.</p>
 <p>Minha jornada no setor industrial começou como auxiliar de chão de fábrica. Com o tempo, atuei nas áreas de expedição, almoxarifado e operação de máquinas de injeção. Essa vivência me proporcionou uma base sólida em processos industriais, especialmente no entendimento de moldes e fabricação.</p>
 <p>No entanto, foi ao conhecer o universo do desenvolvimento de sistemas e programação que encontrei meu verdadeiro propósito profissional. Encantei-me pela lógica, pela construção de soluções e pela capacidade de transformar ideias em códigos funcionais. Desde então, venho me dedicando intensamente a essa área, realizando diversos cursos online e bootcamps, além de estar atualmente cursando Engenharia de Software.</p>
-<p>Hoje, trabalho na <strong>Compudeck a maior produtora de sorter logisiticos no mercado atual!</strong> como <strong>Analista de Suporte Técnico</strong>, função que desempenho há cerca de 45 dias. Nesse cargo, sou responsável por prestar atendimento técnico a clientes, realizar diagnósticos e soluções de problemas em sistemas, auxiliar em configurações de redes e dispositivos, bem como colaborar com a equipe de desenvolvimento no feedback técnico sobre funcionalidades e melhorias. Essa experiência tem sido fundamental para meu crescimento profissional e me permite aplicar na prática os conhecimentos adquiridos ao longo dos estudos.</p>
+<p>Hoje, trabalho na <strong>Compudeck a maior produtora de sorter logisiticos no mercado atual!</strong> como <strong>Analista de Suporte Técnico</strong>, sou responsável por prestar atendimento técnico a clientes, realizar diagnósticos e soluções de problemas em sistemas, auxiliar em configurações de redes e dispositivos, bem como colaborar com a equipe de desenvolvimento no feedback técnico sobre funcionalidades e melhorias. Essa experiência tem sido fundamental para meu crescimento profissional e me permite aplicar na prática os conhecimentos adquiridos ao longo dos estudos.</p>
 <p>Atualmente, estou focado em seguir com a transição para a área de TI, afinal três meses é apenas o começo. E acredito que minha trajetória, aliada à minha dedicação incansável ao aprendizado e evolução constante, fará a diferença. Tenho trabalhado duro, muitas vezes madrugada adentro, para aprimorar minhas habilidades e construir uma carreira sólida e promissora na área de tecnologia.</p>
 <p><em>"Desafios são a chave para a evolução, facilidades são apenas o começo."</em></p>
 <p>Wesley Moura!</p>
@@ -191,12 +192,19 @@
                 <button id="e-electric" class="change-guitar active" onclick="changeGuitar('e-electric')" disabled>Elétrica</button>
               </header>
               <div class="tuner-body e-electric" id="guitar-body">
+                <div class="guitar-pickup"></div>
+                <div class="guitar-pickup pickup2"></div>
                 <button onmouseenter="pickString('s6')" onclick="clickString('s6')" class="string" id="s6"><span></span></button>
                 <button onmouseenter="pickString('s5')" onclick="clickString('s5')" class="string" id="s5"><span></span></button>
                 <button onmouseenter="pickString('s4')" onclick="clickString('s4')" class="string" id="s4"><span></span></button>
                 <button onmouseenter="pickString('s3')" onclick="clickString('s3')" class="string" id="s3"><span></span></button>
                 <button onmouseenter="pickString('s2')" onclick="clickString('s2')" class="string" id="s2"><span></span></button>
                 <button onmouseenter="pickString('s1')" onclick="clickString('s1')" class="string" id="s1"><span></span></button>
+                <div class="fret-dot fret3"></div>
+                <div class="fret-dot fret5"></div>
+                <div class="fret-dot fret7"></div>
+                <div class="fret-dot fret9"></div>
+                <div class="fret-dot fret12"></div>
                 <div class="notes">
                   <span id="s6Note">E</span>
                   <span id="s5Note">A</span>
@@ -258,6 +266,16 @@
             <img src="assets/img/certificado 2.jpg" alt="Certificação 2">
             <p>Certificação em Desenvolvimento Back-End</p>
           </div>
+          <div class="certification">
+            <img src="assets/img/certificdo 3.jpg" alt="Certificação 3">
+            <p>Certificação em Engenharia de Software</p>
+          </div>
+          <div class="certification">
+            <div class="pdf-container">
+              <iframe src="assets/img/Raspberry_PI_e_Aplicações-Certificado_digital_3233037.pdf" width="100%" height="300"></iframe>
+            </div>
+            <p>Certificação em Raspberry PI e Aplicações</p>
+          </div>
         </div>
       </section>
     </div>
@@ -269,6 +287,11 @@
       <a href="https://www.instagram.com/wesguit?igsh=M2E4bGhkbzk5bzg5" target="_blank"><i class="fab fa-instagram"></i></a>
       <a href="https://wa.me/5547988508092" target="_blank"><i class="fab fa-whatsapp"></i></a>
     </footer>
+  </div>
+  <!-- Modal para exibir certificado em destaque -->
+  <div id="cert-modal" class="cert-modal" style="display:none;">
+    <span class="cert-modal-close" onclick="closeCertModal()">&times;</span>
+    <div class="cert-modal-content" id="cert-modal-content"></div>
   </div>
 </body>
 </html>
