@@ -3,6 +3,18 @@
   --secondary-color: #FDB927; /* Dourado */
   --accent-color: #FFFFFF; /* Branco */
   --hover-color: #000000; /* Preto */
+  --text-color-light: #552583;
+  --text-color-dark: #FFFFFF;
+  --background-light: #FFFFFF;
+  --background-dark: #121212;
+  --card-background-light: #F0F0F0;
+  --card-background-dark: #1E1E1E;
+  --sidebar-background-light: #552583;
+  --sidebar-background-dark: #1F1F1F;
+  --sidebar-text-light: #FDB927;
+  --sidebar-text-dark: #FDB927;
+  --hero-background-light: rgba(0, 0, 0, 0.5);
+  --hero-background-dark: rgba(0, 0, 0, 0.7);
   --dark: #282828;
   --black: #0a180b;
   --c-mouth: #7c1d1c;
@@ -20,9 +32,15 @@
 
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: var(--accent-color);
-  color: var(--primary-color);
+  background-color: var(--background-light);
+  color: var(--text-color-light);
   line-height: 1.6;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-color-dark);
 }
 
 .sidebar {
@@ -31,13 +49,37 @@ body {
   left: 0;
   width: 280px;
   height: 100vh;
-  background-color: var(--primary-color);
-  color: var(--secondary-color);
+  background-color: var(--sidebar-background-light);
+  color: var(--sidebar-text-light);
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transition: transform 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow-y: auto;
+}
+
+body.dark-mode .sidebar {
+  background-color: var(--sidebar-background-dark);
+  color: var(--sidebar-text-dark);
+}
+
+/* Estilização da barra de scroll da sidebar */
+.sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: var(--secondary-color);
+  border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: var(--hover-color);
 }
 
 .sidebar-header {
@@ -57,12 +99,22 @@ body {
 .sidebar h1 {
   font-size: 24px;
   margin-bottom: 5px;
+  color: var(--sidebar-text-light);
+}
+
+body.dark-mode .sidebar h1 {
+  color: var(--sidebar-text-dark);
 }
 
 .sidebar h2 {
   font-size: 16px;
   font-weight: 400;
   opacity: 0.9;
+  color: var(--sidebar-text-light);
+}
+
+body.dark-mode .sidebar h2 {
+  color: var(--sidebar-text-dark);
 }
 
 nav {
@@ -74,7 +126,7 @@ nav {
 .nav-link {
   background: none;
   border: none;
-  color: var(--secondary-color);
+  color: var(--sidebar-text-light);
   padding: 12px 20px;
   font-size: 16px;
   text-align: left;
@@ -83,6 +135,10 @@ nav {
   display: flex;
   align-items: center;
   gap: 10px;
+}
+
+body.dark-mode .nav-link {
+  color: var(--sidebar-text-dark);
 }
 
 .nav-link:hover {
@@ -98,6 +154,11 @@ nav {
   margin-left: 280px;
   padding: 40px;
   min-height: 100vh;
+  color: var(--text-color-light);
+}
+
+body.dark-mode .main-content {
+  color: var(--text-color-dark);
 }
 
 .container {
@@ -125,11 +186,16 @@ nav {
 
 .hero-content {
   text-align: center;
-  color: var(--accent-color);
+  color: var(--text-color-dark);
   padding: 20px;
-  background: rgba(0, 0, 0, 0.5);
+  background: var(--hero-background-light);
   border-radius: 12px;
   animation: fadeIn 1s ease-in-out;
+  transition: background 0.3s ease;
+}
+
+body.dark-mode .hero-content {
+  background: var(--hero-background-dark);
 }
 
 .hero-content h1 {
@@ -193,14 +259,20 @@ nav {
 }
 
 .carousel-item {
-  background-color: var(--accent-color);
+  background-color: var(--card-background-light);
   border-radius: 8px;
   padding: 20px;
   width: 200px;
   text-align: center;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease, border 0.3s ease;
+  transition: transform 0.3s ease, border 0.3s ease, background-color 0.3s ease, color 0.3s ease;
   cursor: pointer;
+  color: var(--text-color-light);
+}
+
+body.dark-mode .carousel-item {
+  background-color: var(--card-background-dark);
+  color: var(--text-color-dark);
 }
 
 .carousel-item:hover {
@@ -230,12 +302,18 @@ nav {
 }
 
 .card {
-  background-color: var(--accent-color);
+  background-color: var(--card-background-light);
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  color: var(--text-color-light);
+}
+
+body.dark-mode .card {
+  background-color: var(--card-background-dark);
+  color: var(--text-color-dark);
 }
 
 .card:hover {
@@ -269,12 +347,18 @@ nav {
 }
 
 .project-card {
-  background-color: var(--accent-color);
+  background-color: var(--card-background-light);
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, color 0.3s ease;
+  color: var(--text-color-light);
+}
+
+body.dark-mode .project-card {
+  background-color: var(--card-background-dark);
+  color: var(--text-color-dark);
 }
 
 .project-card:hover {
@@ -309,6 +393,15 @@ nav {
   margin-bottom: 10px;
   border: 1px solid var(--primary-color);
   border-radius: 4px;
+  background-color: var(--background-light);
+  color: var(--text-color-light);
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body.dark-mode .project-demo input {
+  background-color: var(--background-dark);
+  color: var(--text-color-dark);
+  border: 1px solid var(--secondary-color);
 }
 
 .project-demo button {
@@ -318,7 +411,12 @@ nav {
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .project-demo button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 .project-demo button:hover {
@@ -368,12 +466,70 @@ nav {
   margin-bottom: 12px;
 }
 
+#certificacoes .section-content {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+#certificacoes .certification {
+  text-align: center;
+  padding: 15px;
+  background: var(--card-background-light);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+body.dark-mode #certificacoes .certification {
+  background: var(--card-background-dark);
+}
+
+#certificacoes .certification:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+}
+
+#certificacoes .certification p {
+  margin: 0;
+  font-weight: 500;
+  color: var(--text-color-light);
+}
+
+body.dark-mode #certificacoes .certification p {
+  color: var(--text-color-dark);
+}
+
+#certificacoes .pdf-container {
+  width: 100%;
+  max-width: 300px;
+  height: 300px;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 12px;
+  border: 2px solid var(--primary-color);
+}
+
+#certificacoes .pdf-container iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 6px;
+}
+
 footer {
   background-color: var(--primary-color);
   color: var(--secondary-color);
   text-align: center;
   padding: 20px;
   margin-top: 40px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode footer {
+  background-color: var(--sidebar-background-dark);
+  color: var(--sidebar-text-dark);
 }
 
 footer p {
@@ -385,6 +541,10 @@ footer a i {
   margin: 0 12px;
   color: var(--secondary-color);
   transition: transform 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode footer a i {
+  color: var(--sidebar-text-dark);
 }
 
 footer a:hover i {
@@ -403,6 +563,11 @@ footer a:hover i {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   max-width: 600px;
   margin: 0 auto;
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .guitar-tuner {
+  background: var(--card-background-dark);
 }
 
 .guitar-tuner header {
@@ -410,6 +575,12 @@ footer a:hover i {
   justify-content: center;
   gap: 10px;
   margin-bottom: 20px;
+  background-color: var(--card-background-light);
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .guitar-tuner header {
+  background-color: var(--card-background-dark);
 }
 
 .guitar-tuner .change-guitar {
@@ -419,8 +590,12 @@ footer a:hover i {
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
   font-size: 14px;
+}
+
+body.dark-mode .guitar-tuner .change-guitar {
+  color: var(--text-color-dark);
 }
 
 .guitar-tuner .change-guitar:hover {
@@ -439,20 +614,51 @@ footer a:hover i {
   width: 100%;
   height: 300px;
   position: relative;
-  background: linear-gradient(180deg, var(--dark) 5%, var(--c-electric) 50%, var(--dark) 95%);
   border-radius: 8px;
   overflow: hidden;
+  background-color: var(--background-light);
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0 0 4px #2228, 0 8px 32px #0006;
 }
 
 .tuner-body.e-classic {
-  background: linear-gradient(180deg, var(--c-mouth) 5%, transparent 30% 70%, var(--c-mouth) 95%), 
-              radial-gradient(circle at 50% 50%, #c5a05e 0 135px, #bb8d3c 173px, var(--c-classic) 178px);
+  background:
+    repeating-linear-gradient(90deg, #a85b1a 0 8px, transparent 8px 48px), /* trastes */
+    radial-gradient(circle at 50% 50%, #c5a05e 0 120px, #bb8d3c 150px, #ff9800 180px), /* boca */
+    linear-gradient(180deg, #ff9800 0%, #c97a1a 100%); /* fundo braço */
 }
 
+.tuner-body.e-electric {
+  background:
+    repeating-linear-gradient(90deg, #222 0 12px, transparent 12px 60px), /* trastes */
+    repeating-gradient(180deg, #fff 0 20px, #00aaff 20px 100px, #222 100px 120px, #00aaff 120px 300px), /* faixas */
+    linear-gradient(180deg, #00aaff 0%, #003355 100%); /* fundo braço */
+}
+
+.tuner-body .fret-dot {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.7;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+}
+
+.tuner-body.e-classic .fret-dot { background: #c5a05e; }
+.tuner-body.e-electric .fret-dot { background: #fff; }
+.tuner-body .fret-dot.fret3 { top: 32%; }
+.tuner-body .fret-dot.fret5 { top: 48%; }
+.tuner-body .fret-dot.fret7 { top: 64%; }
+.tuner-body .fret-dot.fret9 { top: 80%; }
+.tuner-body .fret-dot.fret12 { top: 96%; width: 12px; height: 12px; }
+
 .tuner-body button.string {
-  background-color: transparent;
+  background-color: var(--card-background-light);
   position: relative;
-  border: none;
+  border: 2px solid var(--primary-color);
   width: 100%;
   margin: 5px 0;
   height: 40px;
@@ -460,6 +666,7 @@ footer a:hover i {
   cursor: pointer;
   padding: 0;
   z-index: 1;
+  transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .tuner-body button.string:before {
@@ -525,7 +732,7 @@ footer a:hover i {
 }
 
 .notes span {
-  color: var(--hover-color);
+  color: var(--primary-color);
   font-size: 20px;
   text-shadow: -1px -1px 1px var(--hover-color);
   opacity: 0.7;
@@ -579,6 +786,12 @@ footer a:hover i {
   width: 100%;
   margin-top: 20px;
   gap: 10px;
+  background-color: var(--card-background-light);
+  transition: background-color 0.3s ease;
+}
+
+body.dark-mode .guitar-tuner footer {
+  background-color: var(--card-background-dark);
 }
 
 .guitar-tuner footer > div {
@@ -638,18 +851,23 @@ footer a:hover i {
 }
 
 .guitar-tuner .buttons button {
-  background: var(--secondary-color);
+  background-color: var(--secondary-color);
   color: var(--primary-color);
   border: none;
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-  transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .guitar-tuner .buttons button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
 }
 
 .guitar-tuner .buttons button:hover {
-  background: var(--hover-color);
+  background-color: var(--hover-color);
   color: var(--accent-color);
 }
 
@@ -659,7 +877,7 @@ footer a:hover i {
 }
 
 .guitar-tuner .pick button {
-  background: linear-gradient(-45deg, #686868, #e6e6e6, #686868);
+  background-color: var(--secondary-color);
   border: 2px solid var(--hover-color);
   border-radius: 35% 66% 40% 15%;
   width: 40px;
@@ -667,6 +885,17 @@ footer a:hover i {
   padding: 2px;
   cursor: pointer;
   position: relative;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body.dark-mode .guitar-tuner .pick button {
+  background-color: var(--secondary-color);
+  color: var(--primary-color);
+}
+
+.guitar-tuner .pick button:hover {
+  background-color: var(--hover-color);
+  color: var(--accent-color);
 }
 
 .guitar-tuner .pick button.active {
@@ -791,7 +1020,7 @@ audio {
   }
 
   .tuner-body {
-    height: 250px;
+    height: 180px;
   }
 
   .notes {
@@ -821,4 +1050,54 @@ audio {
     right: 10px;
     bottom: 10px;
   }
+
+  #certificacoes .section-content {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    padding: 15px;
+  }
+
+  #certificacoes .certification img {
+    max-width: 250px;
+  }
+
+  #certificacoes .pdf-container {
+    max-width: 250px;
+    height: 250px;
+  }
+}
+
+.cert-modal {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.8);
+  justify-content: center;
+  align-items: center;
+}
+.cert-modal-content {
+  max-width: 90vw;
+  max-height: 80vh;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.cert-modal-content img,
+.cert-modal-content iframe {
+  max-width: 90vw;
+  max-height: 80vh;
+  border-radius: 8px;
+  box-shadow: 0 0 20px #000;
+}
+.cert-modal-close {
+  position: absolute;
+  top: 30px;
+  right: 50px;
+  color: #fff;
+  font-size: 3rem;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 10000;
 }
