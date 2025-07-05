@@ -20,6 +20,43 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Dark Mode Toggle
+  const darkModeToggle = document.getElementById('dark-mode-toggle');
+  const body = document.body;
+
+  // Função para atualizar texto e ícone do botão
+  function updateDarkModeButton() {
+    if (body.classList.contains('dark-mode')) {
+      darkModeToggle.querySelector('i').classList.replace('fa-moon', 'fa-sun');
+      darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+    } else {
+      darkModeToggle.querySelector('i').classList.replace('fa-sun', 'fa-moon');
+      darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> Modo Escuro';
+    }
+  }
+
+  // Check for saved theme preference, default to dark mode
+  const currentTheme = localStorage.getItem('theme');
+  if (currentTheme) {
+    body.classList.add(currentTheme);
+    updateDarkModeButton();
+  } else {
+    // Default to dark mode if no preference is saved
+    body.classList.add('dark-mode');
+    updateDarkModeButton();
+    localStorage.setItem('theme', 'dark-mode');
+  }
+
+  darkModeToggle.addEventListener('click', () => {
+    body.classList.toggle('dark-mode');
+    let theme = 'light-mode';
+    if (body.classList.contains('dark-mode')) {
+      theme = 'dark-mode';
+    }
+    updateDarkModeButton();
+    localStorage.setItem('theme', theme);
+  });
+
   window.navigateToSection = function(sectionId) {
     showSection(sectionId);
     const section = document.getElementById(sectionId);
@@ -393,4 +430,43 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderTasks();
   showSection('home');
+
+  // Modal de Certificados
+  function openCertModal(contentHtml) {
+    const modal = document.getElementById('cert-modal');
+    const modalContent = document.getElementById('cert-modal-content');
+    modalContent.innerHTML = contentHtml;
+    modal.style.display = 'flex';
+  }
+
+  function closeCertModal() {
+    document.getElementById('cert-modal').style.display = 'none';
+    document.getElementById('cert-modal-content').innerHTML = '';
+  }
+
+  // Fecha ao clicar fora do conteúdo
+  window.addEventListener('click', function(event) {
+    const modal = document.getElementById('cert-modal');
+    if (modal && modal.style.display === 'flex' && !event.target.closest('.cert-modal-content') && !event.target.closest('.certification')) {
+      closeCertModal();
+    }
+  });
+
+  // Adiciona evento aos certificados
+  window.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.certification img').forEach(img => {
+      img.style.cursor = 'pointer';
+      img.addEventListener('click', function() {
+        openCertModal(`<img src="${img.src}" alt="${img.alt}">`);
+      });
+    });
+    // Para o PDF
+    const pdfContainer = document.querySelector('.pdf-container iframe');
+    if (pdfContainer) {
+      pdfContainer.style.cursor = 'pointer';
+      pdfContainer.addEventListener('click', function() {
+        openCertModal(`<iframe src="${pdfContainer.src}" width="800" height="600"></iframe>`);
+      });
+    }
+  });
 });
